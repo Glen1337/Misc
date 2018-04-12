@@ -6,3 +6,6 @@ GetAcad - When AutoCAD floating license is in use, automatically tries to obtain
 
 
 RegexTester - Tests a regular exression by matching it to a list of strings in parallel and reporting the result.
+
+
+UtilsLib - Helper methods 

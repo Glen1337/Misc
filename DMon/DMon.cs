@@ -12,6 +12,7 @@ namespace Misc
 {
     namespace Projects
     {
+        // Monitor a directory for file writes/adds/deletes. Uses async tasks and parallelism for concurrent operations
         class _Main
         {
             private static String Get(String inStr)
@@ -27,10 +28,12 @@ namespace Misc
                 string useAlerts;
                 string degreeOfParallelism;
 
-                // Cmd prompt start up and buffer dimensions set up
+                // Cmd prompt start up and dimensions set up
                 System.Diagnostics.Process.GetCurrentProcess().StartInfo.Verb = "runas";
                 Console.BufferHeight = Int16.MaxValue / 10;
                 Console.BufferWidth = Int16.MaxValue / 80;
+                Console.WindowHeight = 400;
+                Console.WindowWidth = 200;
                 Console.Title = "DMon";
 
                 // Check arg # and get args if they were supplied from command line

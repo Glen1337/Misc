@@ -143,7 +143,6 @@ namespace Misc
                     Program.acadComApp = Marshal.GetActiveObject(Program.progID) as AcadApplication;
 
                     if (Program.acadComApp != null) { Console.WriteLine("Attempting to start Acad even though an instance is already running"); return Status.Bad; }
-
                 }
                 catch
                 {

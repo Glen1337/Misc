@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{1438B28B-90ED-494D-9C80-BE70657A22A9}</ProjectGuid>
+    <ProjectGuid>{EDB57B54-0588-4FA9-AB57-2CBBFC12531E}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>RegexTester</RootNamespace>
-    <AssemblyName>RegexTester</AssemblyName>
+    <RootNamespace>EventHelper</RootNamespace>
+    <AssemblyName>EventHelper</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -41,17 +41,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="RegexTester.cs" />
+    <Compile Include="EventHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\UtilsLib\UtilsLib.csproj">
-      <Project>{75a4534a-ee8d-4574-9942-3b9a04fe6df7}</Project>
-      <Name>UtilsLib</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

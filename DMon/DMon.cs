@@ -30,10 +30,16 @@ namespace Misc
 
                 // Cmd prompt start up and dimensions set up
                 System.Diagnostics.Process.GetCurrentProcess().StartInfo.Verb = "runas";
-                Console.BufferHeight = Int16.MaxValue / 10;
-                Console.BufferWidth = Int16.MaxValue / 80;
-                Console.WindowHeight = 400;
-                Console.WindowWidth = 200;
+                Console.BufferHeight = Int16.MaxValue / 40;
+                Console.BufferWidth = Int16.MaxValue / 100;
+
+                try 
+                { 
+                    Console.WindowHeight = 400;
+                    Console.WindowWidth = 200;
+                }
+                catch { Console.WriteLine("Can't resize console window to 200 x 400"); }
+
                 Console.Title = "DMon";
 
                 // Check arg # and get args if they were supplied from command line
@@ -66,12 +72,15 @@ namespace Misc
 
         class DMon
         {
+            const Int32 MaxNumDialogBoxesPerScan = 1;
+
             public void Run(string PathIN, string TimeDelayIN, string UseAlertsIN, string DegreeOfParallelism)
             {
                 string _Path;
                 int _TimeDelay;
                 bool _UseAlerts = false;
                 int _DegreeOfParallelism;
+                int NumDialogBoxesShown = 0;
 
                 // dummy value
                 DateTime dt = new DateTime();
@@ -133,6 +142,7 @@ namespace Misc
                 {
                     _Path = PathIN;
                     Console.WriteLine("Monitoring folder: " + _Path);
+                    Console.Title = String.Concat("Monitoring: ", _Path);
                 }
 
                 if (String.Equals("Y", UseAlertsIN))
@@ -175,6 +185,8 @@ namespace Misc
                     // Each check every 10 seconds        
                     for (int count = 1; ; count++)
                     {
+                        NumDialogBoxesShown = 0;
+
                         System.Threading.Thread.Sleep(_TimeDelay * 1000);
 
                         // Write Check # to cmd prompt
@@ -271,8 +283,9 @@ namespace Misc
                                             // File was written to
                                             Console.WriteLine("  " + kvp.Key + " was updated: " + kvp.Value.ToString(String.Format("M/d/yyyy h:mm:ss.fffffff tt")));/* + " by " + Shell.GetUsernameHandlingFile(kvp.Key)*/
 
-                                            if (_UseAlerts)
+                                            if (_UseAlerts && NumDialogBoxesShown < MaxNumDialogBoxesPerScan)
                                             {
+                                                NumDialogBoxesShown++;
                                                 MessageBox.Show("  " + kvp.Key + " was updated: " + kvp.Value.ToString("M/d/yyyy h:mm:ss.fffffff tt"));
                                             }
 
@@ -287,8 +300,9 @@ namespace Misc
                                         // File was added
                                         Console.WriteLine("  " + kvp.Key + " was added: " + kvp.Value.ToString("M/d/yyyy h:mm:ss.fffffff tt") /*+ " by " + Shell.GetUsernameHandlingFile(kvp.Key)*/);
 
-                                        if (_UseAlerts)
+                                        if (_UseAlerts && NumDialogBoxesShown < MaxNumDialogBoxesPerScan)
                                         {
+                                            NumDialogBoxesShown++;
                                             MessageBox.Show("  " + kvp.Key + " was added: " + kvp.Value.ToString("M/d/yyyy h:mm:ss.fffffff tt"));
                                         }
 
@@ -310,8 +324,9 @@ namespace Misc
                                         // File was removed
                                         Console.WriteLine("  " + kvp.Key + " was removed after: " + DateTime.Now.Subtract(new TimeSpan(0, 0, _TimeDelay)).ToString("M/d/yyyy h:mm tt"));
 
-                                        if (_UseAlerts)
+                                        if (_UseAlerts && NumDialogBoxesShown < MaxNumDialogBoxesPerScan)
                                         {
+                                            NumDialogBoxesShown++;
                                             MessageBox.Show("  " + kvp.Key + " was removed after: " + DateTime.Now.Subtract(new TimeSpan(0, 0, _TimeDelay)).ToString("M/d/yyyy h:mm tt"));
                                         }
                                         KeysToRemove.Add(kvp.Key);

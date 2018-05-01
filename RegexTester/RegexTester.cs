@@ -16,13 +16,15 @@ namespace Misc
         {
             static void Main(string[] args)
             {
-                double a = 32.2343;
-                double b = -435.564;
-                String s1 = a.truncstring(2);
-                String s2 = b.truncstring(2);
+                //double a = 32.2343;
+                //double b = -435.564;
+                //String s1 = a.truncstring(2);
+                //String s2 = b.truncstring(2);
 
                 // Test which strings match regular expression in parallel
-                RegexTester rt = new RegexTester(@"^ab\sc$");
+                //RegexTester rt = new RegexTester(@"^DESIGNATIONS WITH\s\S*$");
+                RegexTester rt = new RegexTester(@"(?<=^(\d){5,7}-)\S*$");
+
                 rt.RunTests();
             }
         }
@@ -32,9 +34,12 @@ namespace Misc
             List<String> tests = new List<String>
             {
                 // Add text tests to match to regex here
-                @"ab c",
-                @"abc",
-                @" ab c "
+                @"123456-f5",
+                @"123456-f",
+                @"123456-5",
+                @"123456-32A",
+                @"123456-55",
+
             };
 
             private readonly Regex MainRegex;
@@ -47,6 +52,8 @@ namespace Misc
 
             public void RunTests()
             {
+                System.Diagnostics.Debug.WriteLine("--------------");
+
                 Parallel.ForEach(tests,
                                  delegate(String currentText)
                                  {
@@ -59,6 +66,9 @@ namespace Misc
                                         System.Diagnostics.Debug.WriteLine("No Match for: " + currentText);
                                     }
                                  });
+                
+                System.Diagnostics.Debug.WriteLine("--------------");
+
             }
         }
 

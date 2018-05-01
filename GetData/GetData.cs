@@ -31,7 +31,6 @@ namespace Misc
         }
 
 
-
         public class InfoCollector
         {
             static HttpClient client;
@@ -61,14 +60,14 @@ namespace Misc
                 else { throw new HttpRequestException("Bad response from request"); }
             }
 
-            public async Task<Stream> GetStreamFromResponse(HttpResponseMessage response)
-            {
-                if (response.IsSuccessStatusCode)
-                {
-                    return await response.Content.ReadAsStreamAsync();
-                }
-                else { throw new HttpRequestException("Bad response from request"); }
-            }
+            //public async Task<Stream> GetStreamFromResponse(HttpResponseMessage response)
+            //{
+            //    if (response.IsSuccessStatusCode)
+            //    {
+            //        return await response.Content.ReadAsStreamAsync();
+            //    }
+            //    else { throw new HttpRequestException("Bad response from request"); }
+            //}
 
         }
 
@@ -79,12 +78,7 @@ namespace Misc
                 InfoCollector collector = new InfoCollector();
                 collector.ClientSetup();
                 
-                HttpResponseMessage response = collector.GetResponseFromRequest("stock/aapl/chart").Result;
-
-                //using (Stream JsonStream = collector.GetStreamFromResponse(response).Result)
-                //{
-                //    JsonStream.
-                //}
+                HttpResponseMessage response = collector.GetResponseFromRequest("stock/clf/chart/5y").Result;
 
                 String JsonString = collector.GetStringFromResponse(response).Result;
 

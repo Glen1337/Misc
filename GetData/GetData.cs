@@ -14,6 +14,7 @@ using Newtonsoft.Json.Linq;
 using Newtonsoft.Json.Schema;
 using Newtonsoft.Json.Serialization;
 using Newtonsoft.Json.Utilities;
+using System.Collections;
 
 
 namespace Misc
@@ -23,12 +24,19 @@ namespace Misc
         public class StockInfo
         {
             public String open { get; set; }
+            public String close { get; set; }
+            public String date { get; set; }
+            public String high { get; set; }
+            public String low { get; set; }
+            public String volume { get; set; }
+            public String change { get; set; }
+            public String changePercent { get; set; }
         }
 
-        public class Response
-        {
-            List<StockInfo> StockInfoList { get; set; }
-        }
+        //public class Response
+        //{
+        //    List<StockInfo> StockInfoList { get; set; }
+        //}
 
 
         public class InfoCollector
@@ -82,8 +90,6 @@ namespace Misc
 
                 String JsonString = collector.GetStringFromResponse(response).Result;
 
-                List<StockInfo> si = JsonConvert.DeserializeObject<List<StockInfo>>(JsonString);
-
                 JArray jsonObjectArray = JArray.Parse(JsonString);
 
                 //https://stackoverflow.com/questions/15726197/parsing-a-json-array-using-json-net
@@ -96,17 +102,22 @@ namespace Misc
                     }
                 }
 
-                //https://stackoverflow.com/questions/12676746/parse-json-string-in-c-sharp
+                ////https://stackoverflow.com/questions/12676746/parse-json-string-in-c-sharp
                 //foreach (JObject jsonObject in jsonObjectArray)
                 //{
                 //    foreach (KeyValuePair<String, JToken> obj in jsonObject)
                 //    {
                 //        //var Key = obj.Key;
-                //        var close = (String )obj.Value["close"];
+                //        var close = (String)obj.Value["close"];
                 //    }
                 //}
 
-                int i = 0;
+                //List<StockInfo> si = JsonConvert.DeserializeObject<List<StockInfo>>(JsonString);
+
+                IEnumerable<StockInfo> si2 = JsonConvert.DeserializeObject<IEnumerable<StockInfo>>(JsonString).Reverse();
+
+
+
             }
         }
     }

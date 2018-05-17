@@ -13,7 +13,7 @@ namespace Misc
         {
             static void Main(string[] args)
             {
-                // Looks for times.txtx file on Desktop and writes current time (run from Startup folder)
+                // Looks for times.txt file on Desktop and writes current time (run from Startup folder)
                 using (StreamWriter writer = new StreamWriter(String.Concat(Environment.GetFolderPath(Environment.SpecialFolder.Desktop),"\\times.txt"),
                                                               true,
                                                               Encoding.Unicode))

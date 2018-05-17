@@ -110,6 +110,11 @@ namespace Utils
             return true;
         }
 
+        public static String truncstring(this double inDouble)
+        {
+            return inDouble.truncstring(3);
+        }
+
         // Truncates positive or negative double after given # of decimal places for printing
         public static String truncstring(this double inDouble, int numPlaces = 3)
         {
@@ -157,5 +162,12 @@ namespace Utils
                 throw;
             }
         }
+
+        // LINQ extension equivalent of ForEach for IEnumerable<T>
+        public static void ToEach<T>(this IEnumerable<T> enumeration, Action<T> action)
+        {
+            foreach (T item in enumeration) { action(item); }
+        }
+
     }
 }
